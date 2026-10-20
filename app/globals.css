@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: "Red Hat Display";
+  src: url("/fonts/RedHatDisplay.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/Fraunces-VariableFont_SOFT,WONK,opsz,wght.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-black: #202124;
+  --color-white: #f7f4ed;
+  --color-gray: #d8d3c7;
+  --color-apricot: #ffb38a;
+  --color-lilac: #b8a1e8;
+  --color-teal: #329c9a;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Fraunces", serif;
+}
+
+p {
+  font-family: "Red Hat Display", sans-serif;
+}
+
+label {
+  font-family: "Fraunces", serif;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: inherit;
+}
+
+.button-primary {
+  background-color: var(--color-lilac);
+  border-radius: 2rem;
+  font-family: "Fraunces", serif;
+  padding: 8px 16px;
+}
+
+.button-secondary {
+  background-color: var(--color-apricot);
+  border-radius: 2rem;
+  font-family: "Fraunces", serif;
+  padding: 8px 16px;
+}
+
+.button-primary:hover {
+  background-color: var(--color-apricot);
+  cursor: pointer;
+}
+
+.button-secondary:hover {
+  background-color: var(--color-lilac);
+  cursor: pointer;
 }
