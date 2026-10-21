@@ -10,7 +10,12 @@ export const DeletePrompt = async (promptId: string) => {
 
   const { error } = await supabase.from("prompts").delete().eq("id", promptId);
 
-  if (error) throw error;
+  if (error) {
+    if (error.code === "23503") {
+      throw new Error("some posts are using the prompt so it cannot be deleted");
+    }
+    throw new Error("something went wrong. try again later");
+  }
 
   return;
 };

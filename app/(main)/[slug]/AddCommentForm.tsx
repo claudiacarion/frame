@@ -31,7 +31,7 @@ const AddCommentForm = ({
   const { mutate, error } = useMutation({
     mutationFn: AddComment,
     onSuccess: () => reset(),
-    onSettled: () => toast("comment added"),
+    onSettled: () => toast.success("comment added"),
   });
 
   return (

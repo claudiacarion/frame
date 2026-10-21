@@ -7,10 +7,11 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { AllPromptsType } from "@/lib/supabase/queries";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHourglass, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { toast } from "sonner";
 
-const AdminPrompts = ({ prompts }: { prompts: AllPromptsType }) => {
+const Prompts = ({ prompts }: { prompts: AllPromptsType }) => {
   const router = useRouter();
 
   const sortedPrompts = [...prompts].sort((a, b) => b.date.localeCompare(a.date));
@@ -25,6 +26,12 @@ const AdminPrompts = ({ prompts }: { prompts: AllPromptsType }) => {
       setSelectedDate("");
       router.refresh();
     },
+    onSettled: () => toast.success("prompt deleted"),
+    onError: error => {
+      toast.error(error.message, {
+        duration: 3000,
+      });
+    },
   });
 
   useEffect(() => {
@@ -34,19 +41,15 @@ const AdminPrompts = ({ prompts }: { prompts: AllPromptsType }) => {
   }, [prompts, selectedDate]);
 
   return (
-    <section className="space-y-4">
-      <h2 className="text-2xl font-semibold">manage prompts</h2>
-
-      <div className="space-y-2">
-        <label htmlFor="prompt-date" className="block font-medium">
-          select a date
-        </label>
-
+    <div className="border-3 border-teal rounded-4xl p-8 w-1/3 mx-auto">
+      <h2 className="text-center text-lg">manage prompts</h2>
+      <div className="flex flex-col gap-3 mb-4">
+        <label htmlFor="prompt-date">select a date</label>
         <select
           id="prompt-date"
           value={selectedDate}
           onChange={event => setSelectedDate(event.target.value)}
-          className="w-full rounded-md border p-2">
+          className="bg-teal/20 text-black py-2 px-4 rounded-4xl w-1/2">
           {sortedPrompts.map(prompt => (
             <option key={prompt.id} value={prompt.date}>
               {prompt.date}
@@ -56,30 +59,36 @@ const AdminPrompts = ({ prompts }: { prompts: AllPromptsType }) => {
       </div>
 
       {selectedPrompt && (
-        <div className="space-y-2 rounded-lg border p-4">
-          <p className="text-sm text-gray-500">{selectedPrompt.date}</p>
-
-          <h3 className="text-xl font-semibold">{selectedPrompt.title.toLowerCase()}</h3>
-
-          <p>{selectedPrompt.description.toLowerCase()}</p>
-
+        <div className="rounded-4xl bg-lilac p-4 text-center">
+          <p className="text-xl">{selectedPrompt.date}</p>
+          <div className="my-4">
+            <h3 className="text-3xl font-semibold">{selectedPrompt.title.toLowerCase()}</h3>
+            <p className="text-md">{selectedPrompt.description.toLowerCase()}</p>
+          </div>
           <button
             type="button"
             onClick={() => {
-              if (window.confirm(`are you sure you want to delete the prompt for ${selectedPrompt.date}?`)) {
-                mutate(selectedPrompt.id);
-              }
+              toast("delete this prompt?", {
+                description: `prompt date: ${selectedPrompt.date}`,
+                duration: Infinity,
+                action: {
+                  label: "delete",
+                  onClick: () => mutate(selectedPrompt.id),
+                },
+                cancel: {
+                  label: "cancel",
+                  onClick: () => toast.dismiss(),
+                },
+              });
             }}
             disabled={isPending}
-            className="rounded bg-red-400 px-4 py-2 text-white disabled:opacity-50">
-            {isPending ? "deleting..." : <FontAwesomeIcon icon={faTrashCan} />}
+            className="button-secondary">
+            {isPending ? <FontAwesomeIcon icon={faHourglass} /> : <FontAwesomeIcon icon={faTrashCan} />}
           </button>
-
-          {error && <ErrorMessage error={error.message} />}
         </div>
       )}
-    </section>
+    </div>
   );
 };
 
-export default AdminPrompts;
+export default Prompts;

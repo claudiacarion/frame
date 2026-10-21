@@ -22,12 +22,10 @@ export const CreatePrompt = async (promptData: z.infer<typeof createPromptSchema
   if (checkError) throw checkError;
 
   if (existingPrompt) {
-    throw new Error("a prompt already exists for this date.");
+    throw new Error("a prompt already exists for this date");
   }
 
   const { error } = await supabase.from("prompts").insert(parsedData);
 
   if (error) throw error;
-
-  redirect("/admin");
 };

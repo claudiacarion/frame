@@ -8,10 +8,13 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { toast } from "sonner";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 
 const CreatePromptForm = () => {
+  const router = useRouter();
+  
   const {
     register,
     handleSubmit,
@@ -23,17 +26,27 @@ const CreatePromptForm = () => {
 
   const { mutate, error } = useMutation({
     mutationFn: CreatePrompt,
-    onSuccess: () => reset(),
-    onSettled: () => toast("prompt added"),
+    onSuccess: () => {
+      reset();
+      router.refresh();
+      toast.success("prompt added!");
+    },
+    onError: error => {
+      toast.error(error.message);
+    },
   });
 
   return (
-    <div className="mx-auto w-full max-w-xl border p-6">
-      <h2 className="mb-4 text-xl font-semibold">create a prompt</h2>
-
+    <div className="bg-apricot rounded-4xl p-8 w-1/3 mx-auto mb-8">
+      <h2 className="text-center text-lg">create a prompt</h2>
       <form onSubmit={handleSubmit(values => mutate(values))} className="flex flex-col gap-3">
         <label htmlFor="title">prompt</label>
-        <input id="title" {...register("title")} placeholder="e.g. reflections" className="rounded border p-2" />
+        <input
+          id="title"
+          {...register("title")}
+          placeholder="e.g. reflections"
+          className="bg-white text-black py-2 px-4 rounded-4xl"
+        />
         {errors.title && <ErrorMessage error={errors.title.message!} />}
 
         <label htmlFor="description">description</label>
@@ -42,15 +55,15 @@ const CreatePromptForm = () => {
           {...register("description")}
           placeholder="describe the challenge"
           rows={4}
-          className="rounded border p-2"
+          className="bg-white text-black py-2 px-4 rounded-4xl"
         />
         {errors.description && <ErrorMessage error={errors.description.message!.toLowerCase()} />}
 
         <label htmlFor="date">date</label>
-        <input id="date" type="date" {...register("date")} className="rounded border p-2" />
+        <input id="date" type="date" {...register("date")} className="bg-white text-black py-2 px-4 rounded-4xl" />
         {errors.date && <ErrorMessage error={errors.date.message!.toLowerCase()} />}
 
-        <button type="submit" className="rounded bg-black p-2 text-white">
+        <button type="submit" className="button-primary w-fit mx-auto">
           <FontAwesomeIcon icon={faPlus} />
         </button>
 

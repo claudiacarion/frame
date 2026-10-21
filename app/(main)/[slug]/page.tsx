@@ -24,7 +24,7 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
     <div className="w-1/2 mx-auto m-8">
       <h1 className="text-center text-2xl">{data.title}</h1>
       <p className="text-center">by {data.user_id.username}</p>
-      <div className="bg-lilac p-4 m-4 rounded-4xl w-fit mx-auto text-center">
+      <div className="bg-lilac p-4 m-4 rounded-xl w-fit mx-auto text-center">
         {data.image && (
           <Image
             src={data.image}
@@ -32,11 +32,11 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
             alt={data.slug}
             height={350}
             width={350}
-            className="mx-auto rounded-4xl w-87.5 h-87.5 lg:w-100 lg:h-100 object-cover"
+            className="mx-auto rounded-xl w-87.5 h-87.5 lg:w-100 lg:h-100 object-cover"
           />
         )}
         {data.prompts && (
-          <div className="">
+          <div className="p-4">
             {data.prompts.title && <h2 className="text-lg">{data.prompts.title.toLowerCase()}</h2>}
             {data.prompts.date && <p>{data.prompts.date}</p>}
           </div>

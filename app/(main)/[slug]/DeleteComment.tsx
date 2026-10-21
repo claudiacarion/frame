@@ -1,18 +1,24 @@
-'use client'
+"use client";
 
 import { DeleteCommentAction } from "@/actions/deletecomment-action";
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHourglass, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const DeleteComment = ({ commentId }: { commentId: string }) => {
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: DeleteCommentAction,
+    onSettled: () => toast.success("comment deleted"),
   });
 
   return (
     <div onClick={() => mutate(commentId)}>
-      <FontAwesomeIcon icon={faTrashCan} className='cursor-pointer pl-4'/>
+      {isPending ? (
+        <FontAwesomeIcon icon={faHourglass} />
+      ) : (
+        <FontAwesomeIcon icon={faTrashCan} className="cursor-pointer pl-4" />
+      )}
     </div>
   );
 };

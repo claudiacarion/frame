@@ -1,5 +1,7 @@
 import { Logout } from "@/actions/logout-action";
 import { createClient } from "@/lib/supabase/serverClient";
+import { faPlus, faRightFromBracket, faRightToBracket, faUnlock, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
 const AccountLinks = async () => {
@@ -23,29 +25,28 @@ const AccountLinks = async () => {
     <div className="flex items-center gap-4">
       {user ? (
         <>
-          <div className='bg-lilac py-2 px-4 rounded-4xl text-sm'>hello, {username}!</div>
-
+          <div className="bg-lilac py-2 px-4 rounded-4xl text-sm">hello, {username}!</div>
           <div className="flex gap-4">
             {role === "admin" && (
               <Link href="/admin" className="button-secondary text-sm">
-                admin
+                <FontAwesomeIcon icon={faUnlock} />
               </Link>
             )}
             <Link href="/create" className="button-secondary text-sm">
-              create post
+              <FontAwesomeIcon icon={faPlus} />
             </Link>
             <div onClick={Logout} className="button-secondary text-sm">
-              log out
+              <FontAwesomeIcon icon={faRightFromBracket} />
             </div>
           </div>
         </>
       ) : (
         <>
-          <Link href="/auth/login" className="button-secondary text-sm">
-            log in
-          </Link>
           <Link href="/auth/signup" className="button-secondary text-sm">
-            sign up
+            <FontAwesomeIcon icon={faUserPlus} />
+          </Link>
+          <Link href="/auth/login" className="button-secondary text-sm">
+            <FontAwesomeIcon icon={faRightToBracket} />
           </Link>
         </>
       )}

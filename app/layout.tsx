@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-white text-black`}>
       <body className="h-full flex flex-col mb-12">
-        <Toaster />
+        <Toaster position="top-center" />
         <QueryClientProvider>{children}</QueryClientProvider>
       </body>
     </html>

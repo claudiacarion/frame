@@ -37,7 +37,7 @@ const PromptOfTheDay = () => {
       <p className="text-xl font-bold">today&apos;s prompt</p>
       <div className="bg-apricot w-fit mx-auto px-8 py-3 my-2 rounded-4xl">
         <h2 className="text-3xl ">{data.title.toLowerCase()}</h2>
-        <p>{data.description.toLowerCase()}</p>
+        <p className='text-md'>{data.description.toLowerCase()}</p>
       </div>
     </section>
   );

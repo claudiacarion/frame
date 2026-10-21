@@ -15,14 +15,13 @@ export default async function AdminPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-8 p-6">
-      <div>
-        <h1 className="text-3xl font-bold">admin dashboard</h1>
-        <p className="mt-2 text-gray-600">manage your daily photography prompts here.</p>
+    <div className="p-8">
+      <div className='text-center mb-4'>
+        <h1 className="text-3xl">admin dashboard</h1>
+        <p>manage your daily photography prompts here.</p>
       </div>
-
       <CreatePromptForm />
-      <Prompts prompts={prompts ?? []} />
+      <Prompts prompts={prompts} />
     </div>
   );
 }

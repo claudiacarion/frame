@@ -3,10 +3,14 @@ import LoginForm from "./form";
 
 const LoginPage = () => {
   return (
-    <>
+    <div className="p-8">
       <LoginForm />
-      <Link href="/auth/signup">need an account? sign up here</Link>
-    </>
+      <p className="text-center p-6">
+        <Link href="/auth/signup" className=" hover:text-lilac ">
+          need an account? sign up here
+        </Link>
+      </p>
+    </div>
   );
 };
 

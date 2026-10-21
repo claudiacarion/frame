@@ -20,19 +20,34 @@ const HomePosts = ({ posts }: { posts: HomePostsType }) => {
   });
 
   return (
-    <>
-      {data.map(post => (
-        <Link href={`/${post.slug}`} key={post.id} className="block border p-4 w-fit">
-          <h4>{post.title}</h4>
-          {post.image && (
-            <div className="relative w-50 h-50" key={post.id}>
-              <Image src={post.image} alt={post.title} fill sizes="200px" className="object-cover" />
+    <div className="w-full">
+      {data.length ? (
+        data.map(post => (
+          <Link
+            href={`/${post.slug}`}
+            key={post.id}
+            className="block bg-lilac p-4 m-4 rounded-xl w-fit mx-auto text-center">
+            {post.image && (
+              <div className="relative " key={post.id}>
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  height={50}
+                  width={50}
+                  className="object-cover h-50 w-50 rounded-xl"
+                />
+              </div>
+            )}
+            <div className="p-2">
+              <h4 className="text-center">{post.title}</h4>
+              <p>{post.user_id.username}</p>
             </div>
-          )}
-          <p>{post.user_id.username}</p>
-        </Link>
-      ))}
-    </>
+          </Link>
+        ))
+      ) : (
+        <h2 className="w-full text-center">be the first to post today.</h2>
+      )}
+    </div>
   );
 };
 
