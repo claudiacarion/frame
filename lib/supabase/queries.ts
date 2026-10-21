@@ -28,7 +28,7 @@ export const getSinglePost = async (slug: string) => {
   const supabase = createClient();
   return await supabase
     .from("posts")
-    .select('*, prompts("title", "description"), user_id("id", "username")')
+    .select('*, prompts("title", "description", "date"), user_id("id", "username")')
     .eq("slug", slug)
     .single();
 };
@@ -44,7 +44,7 @@ export const getPostComments = async (postId: string) => {
     .from("comments")
     .select('id, content, parent_comment_id, user_id("id", "username")')
     .eq("post_id", postId)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: true });
   return data;
 };
 

@@ -6,7 +6,7 @@ const Comments = async ({ postId, isAuthor, userId }: { postId: string; isAuthor
   const comments = await getPostComments(postId);
 
   return (
-    <div className="bg-gray-400">
+    <div className="bg-white px-4">
       {comments && comments.length ? (
         comments
           .filter(comment => comment.parent_comment_id === null)
@@ -30,11 +30,11 @@ const Comments = async ({ postId, isAuthor, userId }: { postId: string; isAuthor
                     </div>
                   ))}
               </div>
-              <AddCommentForm postId={postId} parentCommentId={comment.id} isReply />
+              {userId && <AddCommentForm postId={postId} parentCommentId={comment.id} isReply />}
             </div>
           ))
       ) : (
-        <h2>share your thoughts.</h2>
+        <h2>start a conversation.</h2>
       )}
     </div>
   );

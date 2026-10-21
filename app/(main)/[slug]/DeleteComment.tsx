@@ -12,7 +12,7 @@ const DeleteComment = ({ commentId }: { commentId: string }) => {
 
   return (
     <div onClick={() => mutate(commentId)}>
-      <FontAwesomeIcon icon={faTrashCan} className='cursor-pointer'/>
+      <FontAwesomeIcon icon={faTrashCan} className='cursor-pointer pl-4'/>
     </div>
   );
 };

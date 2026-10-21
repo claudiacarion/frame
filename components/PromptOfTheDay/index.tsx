@@ -25,7 +25,7 @@ const PromptOfTheDay = () => {
 
   if (!data) {
     return (
-      <section className="mb-6 border p-4">
+      <section className="mb-6 p-4">
         <h2>no prompt for today yet</h2>
         <p>check back soon for a new challenge!</p>
       </section>
@@ -33,10 +33,12 @@ const PromptOfTheDay = () => {
   }
 
   return (
-    <section className="mb-6 border p-4">
-      <h2 className="text-xl font-bold">today&apos;s prompt</h2>
-      <h3>{data.title.toLowerCase()}</h3>
-      <p>{data.description.toLowerCase()}</p>
+    <section className="mb-6 p-4 text-center">
+      <p className="text-xl font-bold">today&apos;s prompt</p>
+      <div className="bg-apricot w-fit mx-auto px-8 py-3 my-2 rounded-4xl">
+        <h2 className="text-3xl ">{data.title.toLowerCase()}</h2>
+        <p>{data.description.toLowerCase()}</p>
+      </div>
     </section>
   );
 };

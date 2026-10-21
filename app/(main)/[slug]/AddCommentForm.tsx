@@ -43,16 +43,16 @@ const AddCommentForm = ({
           parentCommentId: parentCommentId ?? null,
         }),
       )}
-      className={`flex flex-col gap-3 w-full ${isReply ? "mt-2" : "mt-6"}`}>
+      className={`flex flex-col gap-3 w-full items-end py-4 rounded-2xl`}>
       <textarea
         {...register("content")}
         placeholder={isReply ? "write a reply..." : "what's your take?"}
-        className={`p-2 rounded-xl ${isReply ? "bg-white/70 text-sm w-1/2 mx-auto" : "bg-white"}`}
+        className={`p-2 rounded-xl w-full bg-teal/20 text-sm mx-auto`}
       />
 
       {errors.content && <ErrorMessage error={errors.content.message!} />}
 
-      <button type="submit" className={`w-fit ${isReply ? "button-secondary text-xs mx-auto" : "button-secondary"}`}>
+      <button type="submit" className="w-fit button-secondary text-xs">
         {isReply ? <FontAwesomeIcon icon={faReply} /> : <FontAwesomeIcon icon={faPaperPlane} />}
       </button>
 

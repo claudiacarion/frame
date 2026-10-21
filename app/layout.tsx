@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-white text-black`}>
-      <body className="min-h-full flex flex-col">
+      <body className="h-full flex flex-col mb-12">
         <Toaster />
         <QueryClientProvider>{children}</QueryClientProvider>
       </body>

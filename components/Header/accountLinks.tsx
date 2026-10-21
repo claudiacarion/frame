@@ -23,28 +23,28 @@ const AccountLinks = async () => {
     <div className="flex items-center gap-4">
       {user ? (
         <>
-          <div>hello, {username}!</div>
+          <div className='bg-lilac py-2 px-4 rounded-4xl text-sm'>hello, {username}!</div>
 
           <div className="flex gap-4">
             {role === "admin" && (
-              <Link href="/admin" className="button-secondary">
+              <Link href="/admin" className="button-secondary text-sm">
                 admin
               </Link>
             )}
-            <Link href="/create" className="button-secondary">
+            <Link href="/create" className="button-secondary text-sm">
               create post
             </Link>
-            <div onClick={Logout} className="button-secondary">
+            <div onClick={Logout} className="button-secondary text-sm">
               log out
             </div>
           </div>
         </>
       ) : (
         <>
-          <Link href="/auth/login" className="button-secondary">
+          <Link href="/auth/login" className="button-secondary text-sm">
             log in
           </Link>
-          <Link href="/auth/signup" className="button-secondary">
+          <Link href="/auth/signup" className="button-secondary text-sm">
             sign up
           </Link>
         </>
