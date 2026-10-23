@@ -20,26 +20,26 @@ const HomePosts = ({ posts }: { posts: HomePostsType }) => {
   });
 
   return (
-    <div className="w-full">
+    <div className="mx-auto md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {data.length ? (
         data.map(post => (
           <Link
             href={`/${post.slug}`}
             key={post.id}
-            className="block bg-lilac p-4 m-4 rounded-xl w-fit mx-auto text-center">
+            className="block bg-lilac p-3 m-4 rounded-xl w-fit mx-auto text-center hover:rotate-1 transition-transform">
             {post.image && (
               <div className="relative " key={post.id}>
                 <Image
                   src={post.image}
                   alt={post.title}
-                  height={50}
-                  width={50}
-                  className="object-cover h-50 w-50 rounded-xl"
+                  height={1000}
+                  width={1000}
+                  className="w-full aspect-square object-cover rounded-xl"
                 />
               </div>
             )}
-            <div className="p-2">
-              <h4 className="text-center">{post.title}</h4>
+            <div className="pt-2">
+              <h4 className="text-lg text-center w-70 truncate">{post.title}</h4>
               <p>{post.user_id.username}</p>
             </div>
           </Link>

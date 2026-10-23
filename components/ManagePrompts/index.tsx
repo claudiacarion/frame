@@ -2,7 +2,6 @@
 "use client";
 
 import { DeletePrompt } from "@/actions/deleteprompt-action";
-import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglass, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { toast } from "sonner";
 
-const Prompts = ({ prompts }: { prompts: AllPromptsType }) => {
+const ManagePrompts = ({ prompts }: { prompts: AllPromptsType }) => {
   const router = useRouter();
 
   const sortedPrompts = [...prompts].sort((a, b) => b.date.localeCompare(a.date));
@@ -25,8 +24,10 @@ const Prompts = ({ prompts }: { prompts: AllPromptsType }) => {
     onSuccess: () => {
       setSelectedDate("");
       router.refresh();
+      toast.success("prompt deleted", {
+        duration: 3000,
+      });
     },
-    onSettled: () => toast.success("prompt deleted"),
     onError: error => {
       toast.error(error.message, {
         duration: 3000,
@@ -41,7 +42,7 @@ const Prompts = ({ prompts }: { prompts: AllPromptsType }) => {
   }, [prompts, selectedDate]);
 
   return (
-    <div className="border-3 border-teal rounded-4xl p-8 w-1/3 mx-auto">
+    <div className="border-3 border-teal rounded-4xl p-8 w-full lg:w-1/2 mx-auto">
       <h2 className="text-center text-lg">manage prompts</h2>
       <div className="flex flex-col gap-3 mb-4">
         <label htmlFor="prompt-date">select a date</label>
@@ -62,8 +63,8 @@ const Prompts = ({ prompts }: { prompts: AllPromptsType }) => {
         <div className="rounded-4xl bg-lilac p-4 text-center">
           <p className="text-xl">{selectedPrompt.date}</p>
           <div className="my-4">
-            <h3 className="text-3xl font-semibold">{selectedPrompt.title.toLowerCase()}</h3>
-            <p className="text-md">{selectedPrompt.description.toLowerCase()}</p>
+            <h3 className="text-3xl font-semibold">{selectedPrompt.title}</h3>
+            <p className="text-md">{selectedPrompt.description}</p>
           </div>
           <button
             type="button"
@@ -91,4 +92,4 @@ const Prompts = ({ prompts }: { prompts: AllPromptsType }) => {
   );
 };
 
-export default Prompts;
+export default ManagePrompts;

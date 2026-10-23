@@ -11,7 +11,7 @@ export default async function Home() {
   if (error) throw error;
 
   return (
-    <div className="h-full p-8">
+    <div className="p-8">
       <PromptOfTheDay />
       {data && <HomePosts posts={data} />}
     </div>

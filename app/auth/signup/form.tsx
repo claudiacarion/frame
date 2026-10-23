@@ -6,8 +6,8 @@ import { SignUp } from "@/actions/signup-action";
 import { signUpSchema } from "@/actions/schemas";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHourglass, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHourglass, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const SignUpForm = () => {
   const {
@@ -23,8 +23,8 @@ const SignUpForm = () => {
   });
 
   return (
-    <div className="bg-apricot rounded-4xl p-8 w-1/3 mx-auto">
-      <h1 className='text-center text-lg'>sign up</h1>
+    <div className="bg-apricot rounded-4xl p-8 w-full lg:w-1/3 mx-auto">
+      <h1 className="text-center text-lg">sign up</h1>
       <form className=" flex flex-col gap-4" onSubmit={handleSubmit(values => mutate(values))}>
         <label htmlFor="username">choose a username</label>
         <input {...register("username")} placeholder="username" className="bg-white text-black py-2 px-4 rounded-4xl" />
@@ -43,7 +43,9 @@ const SignUpForm = () => {
         />
         {errors.password && <ErrorMessage error={errors.password.message!.toLowerCase()} />}
 
-        <button className="button-primary w-fit mx-auto">{isPending ? <FontAwesomeIcon icon={faHourglass} /> : <FontAwesomeIcon icon={faRightToBracket} />}</button>
+        <button className="button-primary w-fit mx-auto">
+          {isPending ? <FontAwesomeIcon icon={faHourglass} /> : <FontAwesomeIcon icon={faRightToBracket} />}
+        </button>
         {error && <ErrorMessage error={error.message.toLowerCase()} />}
       </form>
     </div>

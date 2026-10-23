@@ -3,12 +3,13 @@
 import { AddComment } from "@/actions/addcomment-action";
 import { commentSchema } from "@/actions/schemas";
 import ErrorMessage from "@/components/ErrorMessage";
-import { faPaperPlane, faReply } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane, faReply } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 const AddCommentForm = ({
   postId,
@@ -23,15 +24,29 @@ const AddCommentForm = ({
     register,
     handleSubmit,
     reset,
+    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(commentSchema),
   });
 
+  useEffect(() => {
+    if (errors.content) {
+      const timer = setTimeout(() => {
+        clearErrors("content");
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [errors.content, clearErrors]);
+
   const { mutate, error } = useMutation({
     mutationFn: AddComment,
     onSuccess: () => reset(),
-    onSettled: () => toast.success("comment added"),
+    onSettled: () =>
+      toast.success("comment added", {
+        duration: 3000,
+      }),
   });
 
   return (
@@ -46,17 +61,30 @@ const AddCommentForm = ({
       className={`flex flex-col gap-3 w-full items-end py-4 rounded-2xl`}>
       <textarea
         {...register("content")}
-        placeholder={isReply ? "write a reply..." : "what's your take?"}
-        className={`p-2 rounded-xl w-full bg-teal/20 text-sm mx-auto`}
+        placeholder={isReply ? "join the conversation..." : "what's your take?"}
+        className="p-2 rounded-xl w-full bg-teal/20 text-sm mx-auto"
+        rows={1}
+        onKeyDown={event => {
+          if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            handleSubmit(values =>
+              mutate({
+                commentData: { content: values.content },
+                postId,
+                parentCommentId: parentCommentId ?? null,
+              }),
+            )();
+          }
+        }}
       />
 
-      {errors.content && <ErrorMessage error={errors.content.message!} />}
+      {errors.content && <ErrorMessage error={errors.content.message!.toLowerCase()} />}
 
       <button type="submit" className="w-fit button-secondary text-xs">
         {isReply ? <FontAwesomeIcon icon={faReply} /> : <FontAwesomeIcon icon={faPaperPlane} />}
       </button>
 
-      {error && <ErrorMessage error={error.message} />}
+      {error && <ErrorMessage error={error.message.toLowerCase()} />}
     </form>
   );
 };

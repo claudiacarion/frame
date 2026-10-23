@@ -5,14 +5,14 @@ import Logo from "../Logo";
 
 const Header = () => {
   return (
-    <header className='bg-teal'>
+    <header className='bg-teal sticky top-0 z-50'>
       <div className="p-6">
-        <div className="flex justify-between items-center w-2/3 mx-auto mb-2">
-          <Link href="/" className="flex items-center">
+        <div className="flex flex-col lg:flex-row justify-between items-center w-2/3 mx-auto mb-4">
+          <Link href="/" className="flex items-center hover:-rotate-2 transition-transform">
             <Logo />
             <h2 className="text-[40px]">frame</h2>
           </Link>
-          <div className="justify-self-end">
+          <div className="justify-self-end mt-4 lg:mt-0">
             <AccountLinks />
           </div>
         </div>

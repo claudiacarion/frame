@@ -28,7 +28,7 @@ export const getSinglePost = async (slug: string) => {
   const supabase = createClient();
   return await supabase
     .from("posts")
-    .select('*, prompts("title", "description", "date"), user_id("id", "username")')
+    .select('*, prompts("title", "description", "date"), user_id("id", "username", "role")')
     .eq("slug", slug)
     .single();
 };
@@ -58,6 +58,28 @@ export const getTodaysPrompt = async (supabase: ReturnType<typeof createClient>)
 
 export const getAllPrompts = async (supabase: ReturnType<typeof createClient>) => {
   return await supabase.from("prompts").select("*").order("date", { ascending: false });
+};
+
+export const getWeeksPrompts = async (supabase: ReturnType<typeof createClient>) => {
+  const formatDate = (date: Date) =>
+    date.toLocaleDateString("en-CA", {
+      timeZone: "Europe/Stockholm",
+    });
+
+  const today = new Date();
+  const startDate = new Date(today);
+  startDate.setDate(startDate.getDate() - 6);
+
+  return await supabase
+    .from("prompts")
+    .select("*")
+    .gte("date", formatDate(startDate))
+    .lte("date", formatDate(today))
+    .order("date", { ascending: false });
+};
+
+export const getUserRole = async (supabase: ReturnType<typeof createClient>, userId: string) => {
+  return await supabase.from("users").select("role").eq("id", userId).single();
 };
 
 export type HomePostsType = QueryData<ReturnType<typeof getAllPosts>>;

@@ -15,10 +15,9 @@ const EditPostPage = async ({ params }: { params: { slug: string } }) => {
   if (user && data && user.id !== data.user_id.id) redirect("/auth/login");
 
   return (
-    <>
-      <h1>Edit your post!</h1>
+    <div className="p-8">
       <EditPostForm initialValues={{ title: data!.title, image: data!.image }} postId={data!.id} />
-    </>
+    </div>
   );
 };
 

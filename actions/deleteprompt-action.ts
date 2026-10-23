@@ -8,7 +8,7 @@ export const DeletePrompt = async (promptId: string) => {
 
   const supabase = await createClient();
 
-  const { error } = await supabase.from("prompts").delete().eq("id", promptId);
+  const { data, error } = await supabase.from("prompts").delete().eq("id", promptId);
 
   if (error) {
     if (error.code === "23503") {

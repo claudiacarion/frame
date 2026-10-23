@@ -1,6 +1,6 @@
 import { Admin } from "@/lib/supabase/admin";
 import CreatePromptForm from "./form";
-import Prompts from "@/components/Prompts";
+import Prompts from "@/components/ManagePrompts";
 import { getAllPrompts } from '@/lib/supabase/queries';
 import { createClient } from '@/lib/supabase/serverClient';
 

@@ -2,7 +2,7 @@ import { getPostComments } from "@/lib/supabase/queries";
 import DeleteComment from "./DeleteComment";
 import AddCommentForm from "./AddCommentForm";
 
-const Comments = async ({ postId, isAuthor, userId }: { postId: string; isAuthor: boolean; userId: string | null }) => {
+const Comments = async ({ postId, isAuthor, isAdmin, userId }: { postId: string; isAuthor: boolean; isAdmin: boolean; userId: string | null }) => {
   const comments = await getPostComments(postId);
 
   return (
@@ -13,20 +13,20 @@ const Comments = async ({ postId, isAuthor, userId }: { postId: string; isAuthor
           .map(comment => (
             <div key={comment.id}>
               <div className="flex">
-                <p>
-                  {comment.user_id.username} says {comment.content}
+                <p className='mr-4'>
+                  <span className='font-bold'>{comment.user_id.username} says</span> {comment.content}
                 </p>
-                {(isAuthor || userId === comment.user_id.id) && <DeleteComment commentId={comment.id} />}
+                {(isAuthor || isAdmin || userId === comment.user_id.id) && <DeleteComment commentId={comment.id} />}
               </div>
-              <div className="ml-8">
+              <div className="ml-4 mt-2 flex flex-col gap-2">
                 {comments
                   .filter(reply => reply.parent_comment_id === comment.id)
                   .map(reply => (
                     <div key={reply.id} className='flex'>
-                      <p>
-                        {reply.user_id.username} says {reply.content}
+                      <p className='mr-4'>
+                        <span className="font-bold">{reply.user_id.username} says</span> {reply.content}
                       </p>
-                      {(isAuthor || userId === reply.user_id.id) && <DeleteComment commentId={reply.id} />}
+                      {(isAuthor || isAdmin || userId === reply.user_id.id) && <DeleteComment commentId={reply.id} />}
                     </div>
                   ))}
               </div>

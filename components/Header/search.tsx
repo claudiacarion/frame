@@ -46,7 +46,7 @@ const Search = () => {
   };
 
   return (
-    <div className="relative bg-white text-black py-2 px-4 rounded-4xl w-1/3 mx-auto text-sm" ref={searchRef}>
+    <div className="relative bg-white text-black py-2 px-4 rounded-4xl lg:w-1/3 mx-auto text-sm" ref={searchRef}>
       <form onSubmit={handleSubmit} className='flex'>
         <input onChange={handleChange} placeholder="search" value={input} className="flex-1 border-none focus:outline-none" />
         <button>

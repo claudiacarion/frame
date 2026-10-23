@@ -10,7 +10,7 @@ import { EditPost } from "@/actions/edit-action";
 import z from "zod";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faHourglass, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const EditPostForm = ({
   initialValues,
@@ -37,13 +37,13 @@ const EditPostForm = ({
     },
   });
 
-  const { mutate, error } = useMutation({
+  const { mutate, error, isPending } = useMutation({
     mutationFn: EditPost,
   });
 
   return (
-    <div className="border w-1/3 mx-auto">
-      <h2>create a post</h2>
+    <div className="bg-lilac rounded-4xl p-8 w-full lg:w-1/3 mx-auto">
+      <h1 className="text-center text-lg">edit your post</h1>
       <form
         onSubmit={handleSubmit(values => {
           let imageForm = undefined;
@@ -51,23 +51,30 @@ const EditPostForm = ({
             imageForm = new FormData();
             imageForm.append("image", values.image[0]);
           }
-
           mutate({ postdata: { title: values.title, image: imageForm }, postId });
         })}
-        className="flex flex-col">
-        <label htmlFor="title">title*</label>
-        <input {...register("title")} placeholder="title" />
+        className="flex flex-col gap-4">
+        <label htmlFor="title">title</label>
+        <input {...register("title")} placeholder="title" className="bg-white text-black py-2 px-4 rounded-4xl" />
         {errors.title && <ErrorMessage error={errors.title.message!.toLowerCase()} />}
 
-        <h5>original image:</h5>
-        {initialValues.image && <Image src={initialValues.image} alt={initialValues.title} height={200} width={200} />}
+        <h5>original image</h5>
+        {initialValues.image && (
+          <Image
+            src={initialValues.image}
+            alt={initialValues.title}
+            height={1000}
+            width={1000}
+            className="mx-auto rounded-xl w-87.5 h-87.5 lg:w-100 lg:h-100 object-cover"
+          />
+        )}
 
-        <label htmlFor="image">new image*</label>
-        <input {...register("image")} type="file" />
+        <label htmlFor="image">new image</label>
+        <input {...register("image")} type="file" className="bg-white text-black py-2 px-4 rounded-4xl" />
         {errors.image && <ErrorMessage error={errors.image.message!.toLowerCase()} />}
 
-        <button type="submit" className="rounded bg-black p-2 text-white">
-          <FontAwesomeIcon icon={faPlus} />
+        <button className="button-secondary w-fit mx-auto">
+          {isPending ? <FontAwesomeIcon icon={faHourglass} /> : <FontAwesomeIcon icon={faPlus} />}
         </button>
         {error && <ErrorMessage error={error.message.toLowerCase()} />}
       </form>

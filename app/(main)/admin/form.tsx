@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 
 const CreatePromptForm = () => {
   const router = useRouter();
-  
+
   const {
     register,
     handleSubmit,
@@ -36,26 +36,37 @@ const CreatePromptForm = () => {
     },
   });
 
+  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(values => mutate(values))();
+    }
+  };
+
   return (
-    <div className="bg-apricot rounded-4xl p-8 w-1/3 mx-auto mb-8">
+    <div className="bg-apricot rounded-4xl p-8 w-full lg:w-1/2 mx-auto mb-8">
       <h2 className="text-center text-lg">create a prompt</h2>
       <form onSubmit={handleSubmit(values => mutate(values))} className="flex flex-col gap-3">
         <label htmlFor="title">prompt</label>
         <input
           id="title"
+          maxLength={20}
           {...register("title")}
           placeholder="e.g. reflections"
           className="bg-white text-black py-2 px-4 rounded-4xl"
+          onKeyDown={handleEnter}
         />
-        {errors.title && <ErrorMessage error={errors.title.message!} />}
+        {errors.title && <ErrorMessage error={errors.title.message!.toLowerCase()} />}
 
         <label htmlFor="description">description</label>
         <textarea
           id="description"
+          maxLength={80}
           {...register("description")}
           placeholder="describe the challenge"
-          rows={4}
+          rows={2}
           className="bg-white text-black py-2 px-4 rounded-4xl"
+          onKeyDown={handleEnter}
         />
         {errors.description && <ErrorMessage error={errors.description.message!.toLowerCase()} />}
 

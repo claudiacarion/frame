@@ -32,6 +32,7 @@
 html,
 body {
   height: 100%;
+  text-transform: lowercase;
 }
 
 h1,
@@ -58,26 +59,38 @@ select:focus {
   border-color: inherit;
 }
 
+button {
+  cursor: pointer;
+}
+
 .button-primary {
   background-color: var(--color-lilac);
   border-radius: 2rem;
   font-family: "Fraunces", serif;
-  padding: 8px 16px;
+  padding: 8px 12px;
 }
 
 .button-secondary {
   background-color: var(--color-apricot);
   border-radius: 2rem;
   font-family: "Fraunces", serif;
-  padding: 8px 16px;
+  padding: 8px 12px;
 }
 
 .button-primary:hover {
   background-color: var(--color-apricot);
   cursor: pointer;
+  rotate: 10deg;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 .button-secondary:hover {
   background-color: var(--color-lilac);
   cursor: pointer;
+  rotate: 10deg;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

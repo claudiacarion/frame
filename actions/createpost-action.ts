@@ -35,7 +35,13 @@ export const CreatePost = async (postdata: z.infer<typeof createPostSchema>) => 
   const { data, error } = await supabase
     .from("posts")
     .insert({ ...parsedData, slug: slug, image: imageUrl, user_id: user.id, prompt_id: prompt.id });
-  if (error) throw error;
+
+  if (error) {
+    if (error.code === "23505") {
+      throw new Error("this title is already in use. please choose a different one.");
+    }
+    throw new Error("something went wrong. try again later");
+  }
 
   redirect(`/${slug}`);
 };
