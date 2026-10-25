@@ -5,7 +5,9 @@ const AuthHeader = () => {
   return (
     <header className="bg-teal ">
       <div className="flex justify-center items-center mx-auto p-6">
-        <Link href="/"  className="flex items-center hover:-rotate-2 transition-transform">
+        <Link
+          href="/"
+          className="flex items-center active:-rotate-2 [@media(hover:hover)]:hover:-rotate-2 transition-transform">
           <Logo />
           <h2 className="text-[40px]">frame</h2>
         </Link>
