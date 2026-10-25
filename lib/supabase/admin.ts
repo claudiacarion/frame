@@ -9,7 +9,7 @@ export const Admin = async () => {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect("/auth/login");
   }
 
   const { data: profile, error } = await supabase.from("users").select("role").eq("id", user.id).single();
