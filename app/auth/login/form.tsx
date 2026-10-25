@@ -18,7 +18,7 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const { mutate, error, isPending } = useMutation({
+  const { mutate, error, isPending, data } = useMutation({
     mutationFn: Login,
   });
 
@@ -29,7 +29,6 @@ const LoginForm = () => {
         <label htmlFor="email">email</label>
         <input {...register("email")} placeholder="email" className="bg-white text-black py-2 px-4 rounded-4xl" />
         {errors.email && <ErrorMessage error={errors.email.message!.toLowerCase()} />}
-
         <label htmlFor="password">password</label>
         <input
           {...register("password")}
@@ -38,11 +37,11 @@ const LoginForm = () => {
           className="bg-white text-black py-2 px-4 rounded-4xl"
         />
         {errors.password && <ErrorMessage error={errors.password.message!.toLowerCase()} />}
-
         <button className="button-primary w-fit mx-auto">
           {isPending ? <FontAwesomeIcon icon={faHourglassEnd} /> : <FontAwesomeIcon icon={faRightToBracket} />}
         </button>
-        {error && <ErrorMessage error={error.message.toLowerCase()} />}
+        {data?.error && <ErrorMessage error={data.error} />}
+        {error && <ErrorMessage error="something went wrong. please try again." />}
       </form>
     </div>
   );
