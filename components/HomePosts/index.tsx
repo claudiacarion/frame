@@ -26,7 +26,7 @@ const HomePosts = ({ posts }: { posts: HomePostsType }) => {
           <Link
             href={`/${post.slug}`}
             key={post.id}
-            className="block bg-lilac p-3 m-4 rounded-xl w-fit mx-auto text-center hover:rotate-1 hover:bg-apricot transition-transform">
+            className="block p-3 m-4 rounded-xl w-fit mx-auto text-center hover-apricot">
             {post.image && (
               <div className="relative " key={post.id}>
                 <Image

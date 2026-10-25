@@ -43,7 +43,8 @@ h5 {
   font-family: "Fraunces", serif;
 }
 
-p {
+p,
+form {
   font-family: "Red Hat Display", sans-serif;
 }
 
@@ -63,36 +64,22 @@ button {
   cursor: pointer;
 }
 
-.button-primary {
-  background-color: var(--color-lilac);
+.button-primary,
+.button-secondary {
   border-radius: 2rem;
   font-family: "Fraunces", serif;
   padding: 8px 12px;
+  transition:
+    rotate 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-primary {
+  background-color: var(--color-lilac);
 }
 
 .button-secondary {
   background-color: var(--color-apricot);
-  border-radius: 2rem;
-  font-family: "Fraunces", serif;
-  padding: 8px 12px;
-}
-
-.button-primary:hover {
-  background-color: var(--color-apricot);
-  cursor: pointer;
-  rotate: 10deg;
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-.button-secondary:hover {
-  background-color: var(--color-lilac);
-  cursor: pointer;
-  rotate: 10deg;
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 }
 
 .footer-button {
@@ -100,12 +87,75 @@ button {
   border-radius: 2rem;
   background-color: var(--color-lilac);
   font-size: 16px;
-  transition-property: transform, background-color;
-  transition-duration: 150ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    transform 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.footer-button:hover {
+@media (hover: hover) {
+  .button-primary:hover {
+    background-color: var(--color-apricot);
+    rotate: 10deg;
+  }
+
+  .button-secondary:hover {
+    background-color: var(--color-lilac);
+    rotate: 10deg;
+  }
+
+  .footer-button:hover {
+    background-color: var(--color-apricot);
+    transform: rotate(10deg);
+  }
+
+  .hover-lilac:hover {
+    background-color: var(--color-lilac);
+    rotate: 1deg;
+  }
+
+  .hover-apricot:hover {
+    background-color: var(--color-apricot);
+    rotate: 1deg;
+  }
+}
+
+.button-primary:active {
+  background-color: var(--color-apricot);
+  rotate: 10deg;
+}
+
+.button-secondary:active {
+  background-color: var(--color-lilac);
+  rotate: 10deg;
+}
+
+.footer-button:active {
   background-color: var(--color-apricot);
   transform: rotate(10deg);
+}
+
+@layer components {
+  .hover-lilac {
+    background-color: var(--color-apricot);
+    transition:
+      rotate 150ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-apricot {
+    background-color: var(--color-lilac);
+    transition:
+      rotate 150ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lilac:active {
+    background-color: var(--color-lilac);
+    rotate: 1deg;
+  }
+
+  .hover-apricot:active {
+    background-color: var(--color-apricot);
+    rotate: 1deg;
+  }
 }

@@ -26,7 +26,7 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className="px-6 lg:w-1/2 mx-auto m-8">
-      <h1 className="text-center text-3xl">{data.title}</h1>
+      <h1 className="text-center text-3xl whitespace-normal break-words">{data.title}</h1>
       <p className="text-center text-md">by {data.user_id.username}</p>
       <div className="bg-lilac p-4 m-4 rounded-xl w-fit mx-auto text-center">
         {data.image && (

@@ -52,7 +52,7 @@ const Search = () => {
         <button>
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
-            className="text-lilac transition-colors duration-300 hover:text-apricot cursor-pointer"
+            className="text-lilac font-bold transition-colors hover:text-apricot cursor-pointer"
           />
         </button>
       </form>
@@ -63,9 +63,9 @@ const Search = () => {
               <Link
                 key={index}
                 href={`/${result.slug}`}
-                className="block py-2 px-4 bg-apricot rounded-4xl"
+                className="block py-3 px-4 rounded-4xl bg-lilac active:bg-apricot active:text-bold  [@media(hover:hover)]:hover:bg-apricot [@media(hover:hover)]:hover:font-bold transition-colors"
                 onClick={handleSearchResults}>
-                {result.title}
+                <p>{result.title}</p>
               </Link>
             ))
           ) : (

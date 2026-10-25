@@ -35,7 +35,7 @@ export const getSinglePost = async (slug: string) => {
 
 export const searchPosts = async (searchTerm: string) => {
   const supabase = createClient();
-  return await supabase.from("posts").select("title, slug").textSearch("title", searchTerm);
+  return await supabase.from("posts").select("title, slug").ilike("title", `%${searchTerm}%`);
 };
 
 export const getPostComments = async (postId: string) => {

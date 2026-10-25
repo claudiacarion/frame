@@ -16,7 +16,7 @@ const PromptsPage = async () => {
           <Link
             key={prompt.id}
             href={`/past-prompts/${prompt.date}`}
-            className="block bg-apricot rounded-4xl p-6 hover:bg-lilac hover:rotate-1 transition-transform text-center my-2">
+            className="block rounded-4xl p-6 text-center my-2 hover-lilac">
             <p>{prompt.date}</p>
             <h2 className="text-xl font-bold">{prompt.title}</h2>
           </Link>
