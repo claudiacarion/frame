@@ -2,7 +2,17 @@ import { getPostComments } from "@/lib/supabase/queries";
 import DeleteComment from "./DeleteComment";
 import AddCommentForm from "./AddCommentForm";
 
-const Comments = async ({ postId, isAuthor, isAdmin, userId }: { postId: string; isAuthor: boolean; isAdmin: boolean; userId: string | null }) => {
+const Comments = async ({
+  postId,
+  isAuthor,
+  isAdmin,
+  userId,
+}: {
+  postId: string;
+  isAuthor: boolean;
+  isAdmin: boolean;
+  userId: string | null;
+}) => {
   const comments = await getPostComments(postId);
 
   return (
@@ -12,9 +22,9 @@ const Comments = async ({ postId, isAuthor, isAdmin, userId }: { postId: string;
           .filter(comment => comment.parent_comment_id === null)
           .map(comment => (
             <div key={comment.id}>
-              <div className="flex">
-                <p className='mr-4'>
-                  <span className='font-bold'>{comment.user_id.username} says</span> {comment.content}
+              <div className="flex items-start">
+                <p className="mr-4">
+                  <span className="font-bold text-teal">{comment.user_id.username} says</span> {comment.content}
                 </p>
                 {(isAuthor || isAdmin || userId === comment.user_id.id) && <DeleteComment commentId={comment.id} />}
               </div>
@@ -22,11 +32,13 @@ const Comments = async ({ postId, isAuthor, isAdmin, userId }: { postId: string;
                 {comments
                   .filter(reply => reply.parent_comment_id === comment.id)
                   .map(reply => (
-                    <div key={reply.id} className='flex items-start'>
-                      <p className='mr-4'>
-                        <span className="font-bold">{reply.user_id.username} says</span> {reply.content}
+                    <div key={reply.id} className="flex items-start">
+                      <p className="mr-4">
+                        <span className="font-bold text-teal">{reply.user_id.username} says</span> {reply.content}
                       </p>
-                      {(isAuthor || isAdmin || userId === reply.user_id.id) && <DeleteComment commentId={reply.id} />}
+                      {(isAuthor || isAdmin || userId === reply.user_id.id || userId === comment.user_id.id) && (
+                        <DeleteComment commentId={reply.id} />
+                      )}
                     </div>
                   ))}
               </div>
