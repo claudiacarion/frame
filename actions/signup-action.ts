@@ -11,7 +11,7 @@ export const SignUp = async (userdata: z.infer<typeof signUpSchema>) => {
   const { data: existingUser, error: checkError } = await supabase
     .from("users")
     .select("id")
-    .eq("username", userdata.username)
+    .ilike("username", userdata.username.replace(/[\\%_]/g, "\\$&"))
     .maybeSingle();
 
   if (checkError) {
