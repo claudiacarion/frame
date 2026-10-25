@@ -14,10 +14,14 @@ export const SignUp = async (userdata: z.infer<typeof signUpSchema>) => {
     .eq("username", userdata.username)
     .maybeSingle();
 
-  if (checkError) throw checkError;
+  if (checkError) {
+    throw checkError;
+  }
 
   if (existingUser) {
-    throw new Error("this username is already taken. please choose another one.");
+    return {
+      error: "this username is already taken. please choose another one.",
+    };
   }
 
   const { data: existingEmail, error: emailCheckError } = await supabase
@@ -26,10 +30,12 @@ export const SignUp = async (userdata: z.infer<typeof signUpSchema>) => {
     .eq("email", userdata.email)
     .maybeSingle();
 
-  if (emailCheckError) throw emailCheckError;
+  if (emailCheckError) {
+    throw emailCheckError;
+  }
 
   if (existingEmail) {
-    throw new Error("this email address is already in use.");
+    return { error: "this email address is already in use." };
   }
 
   const { error } = await supabase.auth.signUp({
@@ -42,7 +48,9 @@ export const SignUp = async (userdata: z.infer<typeof signUpSchema>) => {
     },
   });
 
-  if (error) throw error;
+  if (error) {
+    throw error;
+  }
 
   redirect("/");
 };

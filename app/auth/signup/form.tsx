@@ -18,7 +18,7 @@ const SignUpForm = () => {
     resolver: zodResolver(signUpSchema),
   });
 
-  const { mutate, error, isPending } = useMutation({
+  const { mutate, error, isPending, data } = useMutation({
     mutationFn: SignUp,
   });
 
@@ -29,11 +29,9 @@ const SignUpForm = () => {
         <label htmlFor="username">choose a username</label>
         <input {...register("username")} placeholder="username" className="bg-white text-black py-2 px-4 rounded-4xl" />
         {errors.username && <ErrorMessage error={errors.username.message!.toLowerCase()} />}
-
         <label htmlFor="email">enter your email</label>
         <input {...register("email")} placeholder="email" className="bg-white text-black py-2 px-4 rounded-4xl" />
         {errors.email && <ErrorMessage error={errors.email.message!.toLowerCase()} />}
-
         <label htmlFor="password">enter a password</label>
         <input
           {...register("password")}
@@ -42,11 +40,11 @@ const SignUpForm = () => {
           className="bg-white text-black py-2 px-4 rounded-4xl"
         />
         {errors.password && <ErrorMessage error={errors.password.message!.toLowerCase()} />}
-
         <button className="button-primary w-fit mx-auto">
           {isPending ? <FontAwesomeIcon icon={faHourglassEnd} /> : <FontAwesomeIcon icon={faRightToBracket} />}
         </button>
-        {error && <ErrorMessage error={error.message.toLowerCase()} />}
+        {data?.error && <ErrorMessage error={data.error} />}
+        {error && <ErrorMessage error="something went wrong. please try again." />}{" "}
       </form>
     </div>
   );
