@@ -13,9 +13,14 @@ import { toast } from "sonner";
 
 const CreatePostForm = () => {
   const postImageSchema = createPostSchema.omit({ image: true }).extend({
-    image: z.unknown().transform(value => {
-      return value as FileList;
-    }),
+    image: z
+      .unknown()
+      .transform(value => {
+        return value as FileList;
+      })
+      .refine(files => files.length > 0, {
+        message: "image required",
+      }),
   });
 
   const {
@@ -28,6 +33,11 @@ const CreatePostForm = () => {
 
   const { mutate, error, isPending } = useMutation({
     mutationFn: CreatePost,
+    onError: error => {
+      if (error.message !== "NEXT_REDIRECT") {
+        toast.error(error.message.toLowerCase());
+      }
+    },
   });
 
   if (error) console.log(error);
@@ -48,7 +58,7 @@ const CreatePostForm = () => {
 
         <label htmlFor="image">image*</label>
         <input {...register("image")} type="file" className="bg-white text-black py-2 px-4 rounded-4xl" />
-        {error && <ErrorMessage error={error.message!.toLowerCase()} />}
+        {errors.image && <ErrorMessage error={errors.image.message!.toLowerCase()} />}
 
         <button className="button-secondary w-fit mx-auto">
           {isPending ? <FontAwesomeIcon icon={faHourglassEnd} /> : <FontAwesomeIcon icon={faPlus} />}
