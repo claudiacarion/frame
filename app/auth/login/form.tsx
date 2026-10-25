@@ -41,7 +41,7 @@ const LoginForm = () => {
           {isPending ? <FontAwesomeIcon icon={faHourglassEnd} /> : <FontAwesomeIcon icon={faRightToBracket} />}
         </button>
         {data?.error && <ErrorMessage error={data.error} />}
-        {error && <ErrorMessage error="something went wrong. please try again." />}
+        {error && <ErrorMessage error={error.message} />}
       </form>
     </div>
   );
