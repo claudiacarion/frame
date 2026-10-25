@@ -41,7 +41,7 @@ const LoginForm = () => {
           {isPending ? <FontAwesomeIcon icon={faHourglassEnd} /> : <FontAwesomeIcon icon={faRightToBracket} />}
         </button>
         {data?.error && <ErrorMessage error={data.error} />}
-        {error && <ErrorMessage error={error.message} />}
+        {error && <ErrorMessage error={error.message.toLowerCase()} />}
       </form>
     </div>
   );
