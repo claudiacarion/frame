@@ -20,6 +20,9 @@ const CreatePostForm = () => {
       })
       .refine(files => files.length > 0, {
         message: "image required",
+      })
+      .refine(files => files[0].size <= 4 * 1024 * 1024, {
+        message: "image must be smaller than 4 MB",
       }),
   });
 
