@@ -7,7 +7,7 @@ import { loginSchema } from "@/actions/schemas";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHourglass, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { faHourglassEnd, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const LoginForm = () => {
   const {
@@ -40,7 +40,7 @@ const LoginForm = () => {
         {errors.password && <ErrorMessage error={errors.password.message!.toLowerCase()} />}
 
         <button className="button-primary w-fit mx-auto">
-          {isPending ? <FontAwesomeIcon icon={faHourglass} /> : <FontAwesomeIcon icon={faRightToBracket} />}
+          {isPending ? <FontAwesomeIcon icon={faHourglassEnd} /> : <FontAwesomeIcon icon={faRightToBracket} />}
         </button>
         {error && <ErrorMessage error={error.message.toLowerCase()} />}
       </form>

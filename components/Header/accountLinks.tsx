@@ -25,7 +25,7 @@ const AccountLinks = async () => {
     <div className="flex w-full items-center gap-4">
       {user ? (
         <>
-          <div className="bg-lilac py-2 px-4 rounded-4xl text-sm min-w-0 max-w-40 shrink-0 whitespace-nowrap truncate">hi, {username}!</div>
+          <div className="bg-lilac py-2 px-4 rounded-4xl text-sm min-w-0 max-w-40 shrink-0 whitespace-nowrap truncate">hi, {username}</div>
           <div className="flex gap-4">
             {role === "admin" && (
               <Link href="/admin" className="button-secondary text-sm">

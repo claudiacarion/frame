@@ -7,8 +7,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { AllPromptsType } from "@/lib/supabase/queries";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHourglass, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { toast } from "sonner";
+import { faHourglassEnd } from '@fortawesome/free-solid-svg-icons';
 
 const ManagePrompts = ({ prompts }: { prompts: AllPromptsType }) => {
   const router = useRouter();
@@ -84,7 +85,7 @@ const ManagePrompts = ({ prompts }: { prompts: AllPromptsType }) => {
             }}
             disabled={isPending}
             className="button-secondary">
-            {isPending ? <FontAwesomeIcon icon={faHourglass} /> : <FontAwesomeIcon icon={faTrashCan} />}
+            {isPending ? <FontAwesomeIcon icon={faHourglassEnd} /> : <FontAwesomeIcon icon={faTrashCan} />}
           </button>
         </div>
       )}

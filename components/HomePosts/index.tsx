@@ -26,7 +26,7 @@ const HomePosts = ({ posts }: { posts: HomePostsType }) => {
           <Link
             href={`/${post.slug}`}
             key={post.id}
-            className="block bg-lilac p-3 m-4 rounded-xl w-fit mx-auto text-center hover:rotate-1 transition-transform">
+            className="block bg-lilac p-3 m-4 rounded-xl w-fit mx-auto text-center hover:rotate-1 hover:bg-apricot transition-transform">
             {post.image && (
               <div className="relative " key={post.id}>
                 <Image
@@ -34,12 +34,12 @@ const HomePosts = ({ posts }: { posts: HomePostsType }) => {
                   alt={post.title}
                   height={1000}
                   width={1000}
-                  className="w-full aspect-square object-cover rounded-xl"
+                  className="aspect-square md:w-65 md:h-65 object-cover rounded-xl"
                 />
               </div>
             )}
             <div className="pt-2">
-              <h4 className="text-lg text-center w-70 truncate">{post.title}</h4>
+              <h4 className="text-lg text-center md:w-65 truncate">{post.title}</h4>
               <p>{post.user_id.username}</p>
             </div>
           </Link>

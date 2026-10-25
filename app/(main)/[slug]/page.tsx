@@ -7,6 +7,7 @@ import Comments from "./Comments";
 import AddCommentForm from "./AddCommentForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { notFound } from 'next/navigation';
 
 const PostPage = async ({ params }: { params: { slug: string } }) => {
   const supabase = await createClient();
@@ -16,7 +17,7 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
 
   const { slug } = await params;
   const { data, error } = await getSinglePost(slug);
-  if (error) throw error;
+  if (error || !data) notFound();
 
   const { data: profile } = user ? await getUserRole(supabase, user.id) : { data: null };
 
@@ -49,10 +50,10 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
         {(isAuthor || isAdmin) && (
           <div className="flex gap-4 justify-center">
             {isAuthor && (
-              <button className='button-secondary'>
-              <Link href={`/${slug}/edit`}>
-                <FontAwesomeIcon icon={faPen} />
-              </Link>
+              <button className="button-secondary">
+                <Link href={`/${slug}/edit`}>
+                  <FontAwesomeIcon icon={faPen} />
+                </Link>
               </button>
             )}
             <DeleteButton id={data.id} />

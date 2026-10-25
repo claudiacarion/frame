@@ -3,7 +3,7 @@
 import { CreatePost } from "@/actions/createpost-action";
 import { createPostSchema } from "@/actions/schemas";
 import ErrorMessage from "@/components/ErrorMessage";
-import { faHourglass, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faHourglassEnd, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -29,7 +29,9 @@ const CreatePostForm = () => {
   const { mutate, error, isPending } = useMutation({
     mutationFn: CreatePost,
     onError: error => {
-      toast.error(error.message.toLowerCase());
+      if (error.message !== "NEXT_REDIRECT") {
+        toast.error(error.message.toLowerCase());
+      }
     },
   });
 
@@ -54,7 +56,7 @@ const CreatePostForm = () => {
         {errors.image && <ErrorMessage error={errors.image.message!.toLowerCase()} />}
 
         <button className="button-secondary w-fit mx-auto">
-          {isPending ? <FontAwesomeIcon icon={faHourglass} /> : <FontAwesomeIcon icon={faPlus} />}
+          {isPending ? <FontAwesomeIcon icon={faHourglassEnd} /> : <FontAwesomeIcon icon={faPlus} />}
         </button>
       </form>
     </div>

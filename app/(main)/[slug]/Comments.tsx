@@ -22,7 +22,7 @@ const Comments = async ({ postId, isAuthor, isAdmin, userId }: { postId: string;
                 {comments
                   .filter(reply => reply.parent_comment_id === comment.id)
                   .map(reply => (
-                    <div key={reply.id} className='flex'>
+                    <div key={reply.id} className='flex items-start'>
                       <p className='mr-4'>
                         <span className="font-bold">{reply.user_id.username} says</span> {reply.content}
                       </p>

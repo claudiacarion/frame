@@ -10,7 +10,7 @@ import { EditPost } from "@/actions/edit-action";
 import z from "zod";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHourglass, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faHourglassEnd, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const EditPostForm = ({
   initialValues,
@@ -74,7 +74,7 @@ const EditPostForm = ({
         {errors.image && <ErrorMessage error={errors.image.message!.toLowerCase()} />}
 
         <button className="button-secondary w-fit mx-auto">
-          {isPending ? <FontAwesomeIcon icon={faHourglass} /> : <FontAwesomeIcon icon={faPlus} />}
+          {isPending ? <FontAwesomeIcon icon={faHourglassEnd} /> : <FontAwesomeIcon icon={faPlus} />}
         </button>
         {error && <ErrorMessage error={error.message.toLowerCase()} />}
       </form>
