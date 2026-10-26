@@ -4,7 +4,7 @@ import Logo from "../Logo";
 const AuthHeader = () => {
   return (
     <header className="bg-teal ">
-      <div className="flex justify-center items-center mx-auto p-6">
+      <div className="flex justify-center lg:justify-between items-center mx-auto p-6">
         <Link
           href="/"
           className="flex items-center active:-rotate-2 [@media(hover:hover)]:hover:-rotate-2 transition-transform">
