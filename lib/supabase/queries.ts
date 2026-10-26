@@ -67,14 +67,17 @@ export const getWeeksPrompts = async (supabase: ReturnType<typeof createClient>)
     });
 
   const today = new Date();
+  const endDate = new Date(today);
+  endDate.setDate(endDate.getDate() - 1);
+
   const startDate = new Date(today);
-  startDate.setDate(startDate.getDate() - 6);
+  startDate.setDate(startDate.getDate() - 7);
 
   return await supabase
     .from("prompts")
     .select("*")
     .gte("date", formatDate(startDate))
-    .lte("date", formatDate(today))
+    .lte("date", formatDate(endDate))
     .order("date", { ascending: false });
 };
 
