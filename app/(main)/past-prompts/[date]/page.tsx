@@ -15,7 +15,7 @@ const PromptPage = async ({ params }: { params: { date: string } }) => {
     .from("posts")
     .select("id, title, image, slug, user_id(username)")
     .eq("prompt_id", data.id)
-    .order("created_at", { ascending: true });
+    .order("created_at", { ascending: false });
 
   if (postsError) throw postsError;
 
