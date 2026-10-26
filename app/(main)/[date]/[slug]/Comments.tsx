@@ -1,16 +1,20 @@
 import { getPostComments } from "@/lib/supabase/queries";
 import DeleteComment from "./DeleteComment";
 import AddCommentForm from "./AddCommentForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Comments = async ({
   postId,
   isAuthor,
   isAdmin,
+  isPostAuthor,
   userId,
 }: {
   postId: string;
   isAuthor: boolean;
   isAdmin: boolean;
+  isPostAuthor: string;
   userId: string | null;
 }) => {
   const comments = await getPostComments(postId);
@@ -24,6 +28,7 @@ const Comments = async ({
             <div key={comment.id}>
               <div className="flex items-start">
                 <p className="mr-4">
+                  {isPostAuthor === comment.user_id.id && <FontAwesomeIcon icon={faStar} className="text-lilac text-xs" />}{" "}
                   <span className="font-bold text-teal">{comment.user_id.username} says</span> {comment.content}
                 </p>
                 {(isAuthor || isAdmin || userId === comment.user_id.id) && <DeleteComment commentId={comment.id} />}
@@ -34,11 +39,10 @@ const Comments = async ({
                   .map(reply => (
                     <div key={reply.id} className="flex items-start">
                       <p className="mr-4">
+                        {isPostAuthor === reply.user_id.id  && <FontAwesomeIcon icon={faStar} className="text-lilac text-xs" />}{" "}
                         <span className="font-bold text-teal">{reply.user_id.username} says</span> {reply.content}
                       </p>
-                      {(isAuthor || isAdmin || userId === reply.user_id.id || userId === comment.user_id.id) && (
-                        <DeleteComment commentId={reply.id} />
-                      )}
+                      {(isAuthor || isAdmin || userId === reply.user_id.id) && <DeleteComment commentId={reply.id} />}
                     </div>
                   ))}
               </div>

@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { createClient } from "@/lib/supabase/browserClient";
 import { getTodaysPrompt } from "@/lib/supabase/queries";
-import Link from "next/link";
 
 const PromptOfTheDay = () => {
   const supabase = createClient();
@@ -36,13 +35,12 @@ const PromptOfTheDay = () => {
 
   return (
     <div className="mb-6 p-4 text-center">
-      <p className="text-xl font-bold">your frame of the day</p>
-      <Link href={`/past-prompts/${data.date}`} className='block w-fit mx-auto'>
-        <div className="w-fit mx-auto p-6 my-2 rounded-4xl hover-lilac">
+      <p className="text-xl font-bold">frame of the day</p>
+        <div className="w-fit mx-auto p-6 my-2 rounded-4xl bg-apricot">
+          <p className='text-lg'>{data.date}</p>
           <h2 className="text-3xl">{data.title}</h2>
           <p className="text-md">{data.description}</p>
         </div>
-      </Link>
     </div>
   );
 };

@@ -38,9 +38,9 @@ const AccountLinks = async () => {
             <Link href="/create" className="button-secondary text-sm">
               <FontAwesomeIcon icon={faPlus} />
             </Link>
-            <div onClick={Logout} className="button-secondary text-sm">
+            <button onClick={Logout} className="button-secondary text-sm">
               <FontAwesomeIcon icon={faRightFromBracket} />
-            </div>
+            </button>
           </div>
         </>
       ) : (

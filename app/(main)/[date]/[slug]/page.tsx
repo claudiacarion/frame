@@ -7,10 +7,9 @@ import Comments from "./Comments";
 import AddCommentForm from "./AddCommentForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
 
 const PostPage = async ({ params }: { params: { date: string; slug: string } }) => {
-  console.log("POST PAGE COMPONENT REACHED");
   const supabase = await createClient();
   const {
     data: { user },
@@ -24,11 +23,12 @@ const PostPage = async ({ params }: { params: { date: string; slug: string } }) 
   const { data: profile } = user ? await getUserRole(supabase, user.id) : { data: null };
 
   const isAuthor: boolean = user && data && user.id === data.user_id.id ? true : false;
-  const isAdmin = profile?.role === "admin";
+  const isAdmin: boolean = profile?.role === "admin";
+  const isPostAuthor: string = data.user_id.id;
 
   return (
     <div className="px-6 lg:w-1/2 mx-auto m-8">
-      <h1 className="text-center text-3xl whitespace-normal break-words">{data.title}</h1>
+      <h1 className="text-center text-3xl whitespace-normal wrap-break-words">{data.title}</h1>
       <p className="text-center text-md">by {data.user_id.username}</p>
       <div className="bg-lilac p-4 m-4 rounded-xl w-fit mx-auto text-center">
         {data.image && (
@@ -65,7 +65,7 @@ const PostPage = async ({ params }: { params: { date: string; slug: string } }) 
       <div className="border-3 border-teal rounded-4xl p-6 mx-auto my-8">
         <h2 className="text-xl">comments</h2>
         {user && <AddCommentForm postId={data.id} />}
-        <Comments postId={data.id} isAuthor={isAuthor} isAdmin={isAdmin} userId={user ? user.id : null} />
+        <Comments postId={data.id} isAuthor={isAuthor} isAdmin={isAdmin} userId={user ? user.id : null} isPostAuthor={isPostAuthor}/>
       </div>
     </div>
   );
