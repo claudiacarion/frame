@@ -27,13 +27,13 @@ const Comments = async ({
           .map(comment => (
             <div key={comment.id} className='my-3'>
               <div className="flex items-start">
-                <p className="mr-4">
-                  {isPostAuthor === comment.user_id.id && <FontAwesomeIcon icon={faStar} className="text-lilac text-xs" />}{" "}
+                <p className="mr-4 mb-2">
+                  {isPostAuthor === comment.user_id.id && <FontAwesomeIcon icon={faStar} className="text-lilac text-xs" />}
                   <span className="font-bold text-teal">{comment.user_id.username} says</span> {comment.content}
                 </p>
                 {(isAuthor || isAdmin || userId === comment.user_id.id) && <DeleteComment commentId={comment.id} />}
               </div>
-              <div className="ml-6 flex flex-col gap-2">
+              <div className="ml-6 flex flex-col gap-1">
                 {comments
                   .filter(reply => reply.parent_comment_id === comment.id)
                   .map(reply => (
