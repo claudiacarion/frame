@@ -15,13 +15,11 @@ const CreatePostForm = () => {
   const postImageSchema = createPostSchema.omit({ image: true }).extend({
     image: z
       .unknown()
-      .transform(value => {
-        return value as FileList;
-      })
-      .refine(files => files.length > 0, {
+      .transform(value => value as FileList | undefined)
+      .refine(files => files !== undefined && files.length > 0, {
         message: "image required",
       })
-      .refine(files => files[0].size <= 4 * 1024 * 1024, {
+      .refine(files => files === undefined || files.length === 0 || files[0].size <= 4 * 1024 * 1024, {
         message: "image must be smaller than 4 MB",
       }),
   });

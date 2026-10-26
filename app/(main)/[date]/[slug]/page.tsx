@@ -9,15 +9,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { notFound } from 'next/navigation';
 
-const PostPage = async ({ params }: { params: { slug: string } }) => {
+const PostPage = async ({ params }: { params: { date: string; slug: string } }) => {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { slug } = await params;
+  const { date, slug } = await params;
   const { data, error } = await getSinglePost(slug);
   if (error || !data) notFound();
+  if (data.prompts?.date !== date) notFound();
 
   const { data: profile } = user ? await getUserRole(supabase, user.id) : { data: null };
 
@@ -51,7 +52,7 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
           <div className="flex gap-4 justify-center">
             {isAuthor && (
               <button className="button-secondary">
-                <Link href={`/${slug}/edit`}>
+                <Link href={`/${data.prompts.date}/${slug}/edit`}>
                   <FontAwesomeIcon icon={faPen} />
                 </Link>
               </button>

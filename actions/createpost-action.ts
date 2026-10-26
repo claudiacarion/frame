@@ -43,5 +43,5 @@ export const CreatePost = async (postdata: z.infer<typeof createPostSchema>) => 
     throw new Error("something went wrong. try again later");
   }
 
-  redirect(`/${slug}`);
+  redirect(`/${prompt.date}/${slug}`);
 };

@@ -9,19 +9,19 @@ export const getTodaysPosts = async (supabase: ReturnType<typeof createClient>) 
   if (!prompt) {
     return supabase
       .from("posts")
-      .select('*, prompts("title", "description"), user_id("id", "username")')
+      .select('*, prompts("title", "description", "date"), user_id("id", "username")')
       .eq("id", "00000000-0000-0000-0000-000000000000");
   }
 
   return supabase
     .from("posts")
-    .select('*, prompts("title", "description"), user_id("id", "username")')
+    .select('*, prompts("title", "description", "date"), user_id("id", "username")')
     .eq("prompt_id", prompt.id)
     .order("created_at", { ascending: false });
 };
 
 export const getAllPosts = async (supabase: ReturnType<typeof createClient>) => {
-  return await supabase.from("posts").select('*, prompts("title", "description"), user_id("id", "username")');
+  return await supabase.from("posts").select('*, prompts("title", "description", "date"), user_id("id", "username")');
 };
 
 export const getSinglePost = async (slug: string) => {

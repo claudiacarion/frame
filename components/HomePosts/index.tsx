@@ -24,7 +24,7 @@ const HomePosts = ({ posts }: { posts: HomePostsType }) => {
       {data.length ? (
         data.map(post => (
           <Link
-            href={`/${post.slug}`}
+            href={`/${post.prompts.date}/${post.slug}`}
             key={post.id}
             className="block p-3 m-4 rounded-xl w-fit mx-auto text-center hover-apricot">
             {post.image && (
