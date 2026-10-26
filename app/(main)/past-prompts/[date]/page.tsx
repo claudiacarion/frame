@@ -34,7 +34,7 @@ const PromptPage = async ({ params }: { params: { date: string } }) => {
           {posts.map(post => (
             <Link
               key={post.id}
-              href={`/${post.slug}`}
+              href={`/${data.date}/${post.slug}`}
               className="block p-3 m-4 rounded-xl w-fit mx-auto text-center hover-apricot">
               {post.image && (
                 <Image

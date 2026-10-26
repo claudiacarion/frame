@@ -10,6 +10,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { notFound } from 'next/navigation';
 
 const PostPage = async ({ params }: { params: { date: string; slug: string } }) => {
+  console.log("POST PAGE COMPONENT REACHED");
   const supabase = await createClient();
   const {
     data: { user },
