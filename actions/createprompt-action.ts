@@ -4,7 +4,6 @@ import { createClient } from "@/lib/supabase/serverClient";
 import { createPromptSchema } from "./schemas";
 import { Admin } from "@/lib/supabase/admin";
 import z from "zod";
-import { redirect } from "next/navigation";
 
 export const CreatePrompt = async (promptData: z.infer<typeof createPromptSchema>) => {
   const parsedData = createPromptSchema.parse(promptData);
@@ -22,10 +21,11 @@ export const CreatePrompt = async (promptData: z.infer<typeof createPromptSchema
   if (checkError) throw checkError;
 
   if (existingPrompt) {
-    throw new Error("a prompt already exists for this date");
+    return { error: "a prompt already exists for this date" };
   }
 
   const { error } = await supabase.from("prompts").insert(parsedData);
-
   if (error) throw error;
+
+  return { success: true };
 };

@@ -26,13 +26,17 @@ const CreatePromptForm = () => {
 
   const { mutate, error } = useMutation({
     mutationFn: CreatePrompt,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      if (data?.error) {
+        toast.error(data.error);
+        return;
+      }
       reset();
       router.refresh();
       toast.success("prompt added!");
     },
     onError: error => {
-      toast.error(error.message);
+      toast.error("something went wrong. please try again.");
     },
   });
 
