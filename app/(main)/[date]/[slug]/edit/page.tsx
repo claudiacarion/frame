@@ -3,8 +3,8 @@ import { createClient } from "@/lib/supabase/serverClient";
 import { notFound, redirect } from "next/navigation";
 import EditPostForm from "./form";
 
-const EditPostPage = async ({ params }: { params: { slug: string } }) => {
-  const { slug } = await params;
+const EditPostPage = async ({ params }: { params: { date: string; slug: string } }) => {
+  const { date, slug } = await params;
 
   const supabase = await createClient();
   const {

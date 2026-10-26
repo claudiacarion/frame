@@ -3,7 +3,7 @@
 import z from "zod";
 import { editPostSchema } from "./schemas";
 import { createClient } from "@/lib/supabase/serverClient";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { uploadImage } from "@/lib/supabase/upload-image";
 
 export const EditPost = async ({ postdata, postId }: { postdata: z.infer<typeof editPostSchema>; postId: string }) => {
@@ -11,7 +11,7 @@ export const EditPost = async ({ postdata, postId }: { postdata: z.infer<typeof 
 
   const supabase = await createClient();
 
-  const { data, error } = await supabase.from("posts").select("*").eq("id", postId).single();
+  const { data, error } = await supabase.from("posts").select('*, prompts("date")').eq("id", postId).single();
 
   if (error) throw error;
 
@@ -37,5 +37,8 @@ export const EditPost = async ({ postdata, postId }: { postdata: z.infer<typeof 
 
   if (updateError) throw updateError;
 
-  redirect(`/${updatedPost.slug}`);
+  const date = data.prompts?.date;
+  if (!date) notFound();
+  
+  redirect(`/${date}/${updatedPost.slug}`);
 };

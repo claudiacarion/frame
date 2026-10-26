@@ -62,7 +62,7 @@ const Search = () => {
             searchResults.map((result, index) => (
               <Link
                 key={index}
-                href={`/${result.slug}`}
+                href={`/${result.prompts.date}/${result.slug}`}
                 className="block py-3 px-4 rounded-4xl bg-lilac active:bg-apricot active:text-bold  [@media(hover:hover)]:hover:bg-apricot [@media(hover:hover)]:hover:font-bold transition-colors"
                 onClick={handleSearchResults}>
                 <p>{result.title}</p>
