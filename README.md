@@ -1,6 +1,6 @@
 # Frame 📸
 
-### A daily photography challenge where everyday moments become something worth sharing. ###
+### A fullstack daily photography challenge app where everyday moments become something worth sharing. ###
 ### Live Site: https://hey-frame.vercel.app/ ###
 
 <p align="center">
@@ -41,7 +41,7 @@ Logged-in users can access all homepage features, plus:
 - **Comments and replies** — Start conversations and reply to other users.
 - **Post management** — Edit your own posts and delete posts or comments where permitted.
 - **Prompt galleries** — Browse posts associated with specific photography prompts, including past prompts.
-- **Search posts** - Find posts by title.
+- **Search posts** — Find posts by title.
 
 ### Admin
 
